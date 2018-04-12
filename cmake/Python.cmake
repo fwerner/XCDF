@@ -14,7 +14,10 @@
 
 IF (NOT PYTHON_FOUND)
 
-  FIND_PACKAGE (PythonInterp REQUIRED QUIET)
+  FIND_PACKAGE (PythonInterp QUIET)
+  IF (NOT PYTHONINTERP_FOUND)
+    return()
+  ENDIF (NOT PYTHONINTERP_FOUND)
 
   # PYTHONHOME is defined: use that to determine which Python to use.
   # Note that for homebrewed Pythons, it may be necessary to define PYTHONHOME
@@ -51,7 +54,10 @@ IF (NOT PYTHON_FOUND)
       RESULT_VARIABLE _result
       OUTPUT_VARIABLE PYTHONROOT
       ERROR_QUIET)
-    FIND_PACKAGE (PythonLibs ${PYTHON_VERSION_STRING} EXACT REQUIRED QUIET)
+    FIND_PACKAGE (PythonLibs ${PYTHON_VERSION_STRING} EXACT QUIET)
+    IF (NOT PYTHONLIBS_FOUND)
+      return()
+    ENDIF (NOT PYTHONLIBS_FOUND)
   ENDIF ()
 
   IF (PYTHON_EXECUTABLE)
