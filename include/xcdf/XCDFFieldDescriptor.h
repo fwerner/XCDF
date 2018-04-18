@@ -35,7 +35,7 @@ class XCDFFieldDescriptor {
   public:
 
     XCDFFieldDescriptor() : name_ (""),
-                            type_(0xFF),
+                            type_('\xff'),
                             rawResolution_(0),
                             parentName_("") { }
 
