@@ -518,6 +518,7 @@ class BitwiseNOTNode<double> :
     BitwiseNOTNode(Node<double>& n1) :
                UnaryNode<double, double, BitwiseNOTNode<double> >(n1) { }
     double Evaluate(double a) const {
+      UNUSED(a);
       XCDFFatal("Bitwise NOT requested for floating point data");
       return 0.;
   }
@@ -859,7 +860,7 @@ class RandNode : public Node<uint64_t> {
   public:
 
     RandNode() { }
-    uint64_t operator[](unsigned idx) const {return rand();}
+    uint64_t operator[](unsigned idx) const {UNUSED(idx); return rand();}
     unsigned GetSize() const {return 1;}
 };
 

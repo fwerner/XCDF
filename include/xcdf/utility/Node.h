@@ -52,7 +52,7 @@ class Node : public Symbol {
     // Support checking second-level node relationships
     virtual bool HasGrandparent() const {return false;}
     virtual const std::string& GetGrandparentName() const {return NO_PARENT;}
-    virtual unsigned GetParentIndex(unsigned index) const {return 0;}
+    virtual unsigned GetParentIndex(unsigned index) const {UNUSED(index); return 0;}
 };
 
 template <> inline
