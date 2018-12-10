@@ -41,7 +41,7 @@ class ConstNode : public Node<T> {
 
     ConstNode(T datum) : datum_(datum) { }
 
-    T operator[](unsigned index) const {return datum_;}
+    T operator[](unsigned index) const {UNUSED(index); return datum_;}
     unsigned GetSize() const {return 1;}
 
   private:
@@ -452,6 +452,7 @@ class BitwiseORNode<T, U, double> :
                        BitwiseORNode<T, U, double> >(n1, n2) { }
 
     double Evaluate(double a, double b) const {
+      UNUSED(a); UNUSED(b);
       XCDFFatal("Bitwise OR requested for floating point data");
       return 0.; // Unreachable
     }
@@ -483,6 +484,7 @@ class BitwiseANDNode<T, U, double> :
                        BitwiseANDNode<T, U, double> >(n1, n2) { }
 
     double Evaluate(double a, double b) const {
+      UNUSED(a); UNUSED(b);
       XCDFFatal("Bitwise AND requested for floating point data");
       return 0.; // Unreachable
 
@@ -559,6 +561,8 @@ class UniqueNode : public Node<uint64_t> {
     UniqueNode(Node<T>& node) : node_(node) { }
     uint64_t operator[](unsigned idx) const {
 
+      UNUSED(idx);
+
       data_.clear();
       for (unsigned i = 0; i < node_.GetSize(); ++i) {
         data_.insert(node_[i]);
@@ -580,6 +584,8 @@ class AnyNode : public Node<uint64_t> {
 
     AnyNode(Node<T>& node) : node_(node) { }
     uint64_t operator[](unsigned idx) const {
+
+      UNUSED(idx);
 
       for (unsigned i = 0; i < node_.GetSize(); ++i) {
         // Note that this is node_[i] != 0, as defined by the C++ spec
@@ -603,6 +609,8 @@ class AllNode : public Node<uint64_t> {
 
     AllNode(Node<T>& node) : node_(node) { }
     uint64_t operator[](unsigned idx) const {
+
+      UNUSED(idx);
 
       // Need to explicitly check size and return false if size is zero
       if (node_.GetSize() == 0) {
@@ -631,6 +639,8 @@ class SumNode : public Node<T> {
 
     SumNode(Node<T>& node) : node_(node) { }
     T operator[](unsigned idx) const {
+
+      UNUSED(idx);
 
       T sum = 0;
       for (unsigned i = 0; i < node_.GetSize(); ++i) {
